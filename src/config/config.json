@@ -1,0 +1,12 @@
+{
+    "spark": {
+        "application_name": "CitibikeAnalysis",
+        "driver_path": "/home/bsi/Downloads/postgresql-42.5.1.jar"
+    },
+    "postgres": {
+        "url": "jdbc:postgresql://127.0.0.1:5432/",
+        "database_name" : "schwarz",
+        "user_name": "admin",
+        "password": "admin"
+    }
+}
