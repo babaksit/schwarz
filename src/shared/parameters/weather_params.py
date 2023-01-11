@@ -1,0 +1,12 @@
+from src.shared.parameters.json_params import JsonParams
+
+
+class WeatherParams(JsonParams):
+    columns = ['name', 'temp', 'datetime']
+    expected_date_time_format = '%Y-%m-%dT%H:%M:%S'
+    city_names = ['nyc']
+    city_col_name = 'name'
+    temperature_col_name = 'temp'
+    date_time_col_name = 'datetime'
+    min_temp = -148.0
+    max_temp = 212.0

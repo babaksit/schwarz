@@ -33,8 +33,13 @@ class StartTimeIsGEEndtimeError(ValueError):
     pass
 
 
-class InvalidLatLonRangeError(ValueError):
-    """Used to indicate that the Latitude and Longitude range is invalid"""
+class InvalidLatRangeError(ValueError):
+    """Used to indicate that the Latitude range is invalid"""
+    pass
+
+
+class InvalidLonRangeError(ValueError):
+    """Used to indicate that the Longitude range is invalid"""
     pass
 
 

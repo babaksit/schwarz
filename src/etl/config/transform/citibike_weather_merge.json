@@ -1,0 +1,6 @@
+{
+    "citibike_table": "citibike_cleaned",
+    "weather_table": "weather_cleaned",
+    "sql_path": "/home/bsi/projects/schwarz/src/etl/sql/citibike_weather/join/join_on_hour.sql",
+    "table_name" : "citibike_weather_merged"
+}

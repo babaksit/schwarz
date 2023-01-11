@@ -1,10 +1,7 @@
+import logging
 from abc import ABC, abstractmethod
-from src.utilities.spark import SparkHandler
-
-
-class DBNotExistsError(Exception):
-    """Exception class when Database does not exist"""
-    pass
+from pyspark.sql.utils import AnalysisException
+from src.utils.spark import SparkHandler
 
 
 class DataExtract(ABC):
@@ -52,18 +49,24 @@ class PostgresCSVDataExtract(CSVDataExtract):
             file_path (str): File path where csv file resides
             result_table_name (str): The name of the table for saving the result
         """
-        self._spark_handler = spark_handler
-        self._file_path = file_path
-        self._result_table_name = result_table_name
+        self.__spark_handler = spark_handler
+        self.__file_path = file_path
+        self.__result_table_name = result_table_name
 
-    def extract(self) -> None:
+    def extract(self) -> bool:
         """
         Function for extracting data from a csv file into Postgres
 
         Returns:
-            None
+            bool: If extracting was successful, False otherwise
         """
-        # Read the CSV file into a DataFrame
-        df = self._spark_handler.spark.read.csv(self._file_path, header=True, inferSchema=True)
+        try:
+            # Read the CSV file into a DataFrame
+            df = self.__spark_handler.spark.read.csv(self.__file_path, header=True, inferSchema=True)
+        except AnalysisException as e:
+            logging.error(e)
+            return False
+
         # Write the DataFrame to the PostgresSQL database
-        self._spark_handler.write_table_error_if_exists(df, self._result_table_name)
+        success = self.__spark_handler.write_table(df, self.__result_table_name)
+        return success
